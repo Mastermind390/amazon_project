@@ -36,8 +36,8 @@ function display_products(){
               </div>
     
               <div class="product-quantity-container">
-                <select>
-                  <option selected value="1">1</option>
+                <select class="js-quantity-selected js-quantity" data-product-id = "${product.id}">
+                  <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
                   <option value="4">4</option>
@@ -68,11 +68,40 @@ function display_products(){
 }
 
 let add_to_cart_btn = document.querySelectorAll(".js-add-to-cart");
+let quantity_selector = document.querySelectorAll(".js-quantity");
+
 
 add_to_cart_btn.forEach((btn) => {
+    // let quantity;
     btn.addEventListener("click", ()=>{
         const productId = btn.dataset.productId;
-        add_to_cart(productId)
-        update_cart_quantity()
+        // let quantity_selected = get_quantity()
+        // for(let i=0; i<quantity_selected.length-1; i++) {
+        //     print(i)
+        // }
+        // quantity = quantity_selected
+        add_to_cart(productId);
+        update_cart_quantity();
     })
+
+    
 })
+
+function get_quantity() {
+    let dropdowns = []
+    quantity_selector.forEach((dropdown)=>{
+        let drop_down_id = dropdown.dataset.productId;
+        let drop_down_value = Number(dropdown.value);
+        dropdowns.push({
+            dropdown_id : drop_down_id,
+            drop_down_value : drop_down_value,
+        });
+    })
+    console.log(dropdowns);
+    return dropdowns;
+}
+
+  // for(let dropdown of quantity_selector) {
+    //     console.log(dropdown.dataset.productId)
+    //     return Number(dropdown.value);
+    // }
